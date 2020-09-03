@@ -1,0 +1,68 @@
+<mat-card>
+
+    <h3>Create User</h3>
+<mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
+<form #form="ngForm" fxLayout="column" fxLayoutAlign="start start" (ngSubmit)="onSubmit(form)">
+
+    <mat-form-field appearance="standard">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name" name="name" [(ngModel)]="user.name" required pattern="M.*" #classTest
+            #nameField="ngModel" (blur)="onBlur(nameField)">
+        <mat-hint>Type your name</mat-hint>
+    </mat-form-field>
+
+    <div [hidden]="!form.submitted || nameField.valid">
+        Enter a name.
+    </div>
+
+    <!-- <h4>{{ classTest.className }}</h4>    
+    <h4>dirty: {{ nameField.dirty }}</h4>
+    <h4>touched: {{ nameField.touched }}</h4> -->
+
+    <mat-form-field appearance="standard">
+        <mat-label>Email Address</mat-label>
+        <input matInput placeholder="Email" name="email" [(ngModel)]="user.email" type="email">
+        <mat-hint>Type your email address</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+        <mat-label>City</mat-label>
+        <select matNativeControl name="city" [(ngModel)]="user.city">            
+            <option *ngFor="let city of cities | async">
+                {{city}}
+            </option>
+        </select>
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="standard">
+        <mat-label>Subscribe</mat-label>
+        <mat-radio-group aria-label="Subscribe" name="subscribe" ngModel>
+            <mat-radio-button value="1">YES</mat-radio-button>
+            <mat-radio-button value="0">NO</mat-radio-button>
+        </mat-radio-group>    
+    </mat-form-field> -->
+
+    <div>
+        <mat-label>Subscribe:</mat-label>&nbsp;
+        <mat-radio-group aria-label="Subscribe" name="subscribe" [(ngModel)]="user.subscribe">
+            <mat-radio-button value="1">YES</mat-radio-button>&nbsp;
+            <mat-radio-button value="0">NO</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <br />
+
+    <mat-chip-list aria-label="Error messages" style="margin-bottom: 16px;" *ngIf="postError">
+        <mat-chip color="accent" (click)="postError = false" selected>
+            {{postErrorMessage}}        
+        </mat-chip>
+    </mat-chip-list>
+  
+    
+    <button mat-raised-button color="primary">OK</button>
+
+</form>
+<pre>{{form.value | json}}</pre>
+<pre>{{user | json}}</pre>
+
+</mat-card>
+

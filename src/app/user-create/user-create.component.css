@@ -1,0 +1,12 @@
+form>mat-form-field:not(:last-child) {
+    margin-right: 16px;
+}
+
+.field-error {
+    border-block: 4px solid red;
+}
+
+mat-chip {
+    min-width: 200px;
+    width: 100%;
+  }
